@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">TaskFlow</string>
+    <string name="greeting">Hello</string>
+    <string name="tasks_today">You have %1$d task(s) for today</string>
+    <string name="view_tasks">View Tasks</string>
+    <string name="add_task_hint">Add a new task…</string>
+    <string name="my_tasks">My Tasks</string>
+    <string name="daily_summary">Daily Summary</string>
+    <string name="completed_tasks">Completed Tasks</string>
+</resources>

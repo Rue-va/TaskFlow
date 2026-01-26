@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Popis zadataka</string>
+    <string name="greeting">Pozdrav</string>
+    <string name="tasks_today">Imate %1$d zadatka danas</string>
+    <string name="view_tasks">Prikaži zadatke</string>
+    <string name="add_task_hint">Dodaj novi zadatak...</string>
+    <string name="my_tasks">Moji zadaci</string>
+    <string name="daily_summary">dnevni sažetak</string>
+    <string name="completed_tasks">Završeni zadaci</string>
+</resources>
