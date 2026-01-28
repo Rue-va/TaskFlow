@@ -29,7 +29,6 @@ fun CalendarScreen(
     viewModel: TaskViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
 ) {
     var datePickerVisible by remember { mutableStateOf(false) }
-    var newTaskText by remember { mutableStateOf("") }
     var selectedDate by remember { mutableStateOf(LocalDate.now()) }
     val tasks by viewModel.tasks.collectAsState()
     val tasksForDay = tasks.filter { it.dueDate == selectedDate }
@@ -87,6 +86,9 @@ fun CalendarScreen(
             )
             LazyColumn(modifier = Modifier.weight(1f)) {
                 items(tasksForDay, key = { it.id }) { task ->
+                    // Logic check for overdue: Not done AND (due today or earlier)
+                    val isOverdue = !task.isDone && !task.dueDate.isAfter(LocalDate.now())
+
                     Row(
                         Modifier
                             .fillMaxWidth()
@@ -107,19 +109,19 @@ fun CalendarScreen(
                         )
                         Column(Modifier.weight(1f)) {
                             Text(
-                                task.title,
+                                text = task.title,
                                 fontWeight = FontWeight.Medium,
                                 textDecoration = if (task.isDone) TextDecoration.LineThrough else TextDecoration.None,
                                 color = when {
-                                    !task.isDone && task.dueDate < LocalDate.now() -> Color.Red
+                                    isOverdue -> Color.Red
                                     task.isDone -> MaterialTheme.colorScheme.primary
                                     else -> MaterialTheme.colorScheme.onBackground
                                 }
                             )
                             Text(
-                                "Due: ${task.dueDate.format(DateTimeFormatter.ofPattern("MMM dd"))}",
+                                text = "Due: ${task.dueDate.format(DateTimeFormatter.ofPattern("MMM dd"))}",
                                 fontSize = 12.sp,
-                                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
+                                color = if (isOverdue) Color.Red else MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
                             )
                         }
                     }
@@ -154,7 +156,10 @@ fun TaskAddDialog(
             TextButton(onClick = {
                 val millis = datePickerState.selectedDateMillis
                 if (millis != null && newText.isNotBlank()) {
-                    val pickedDate = LocalDate.ofEpochDay(millis / 86400000)
+                    // Improved date conversion
+                    val pickedDate = java.time.Instant.ofEpochMilli(millis)
+                        .atZone(java.time.ZoneId.systemDefault())
+                        .toLocalDate()
                     onAddTask(pickedDate, newText)
                 }
             }) { Text("Add") }
@@ -169,7 +174,8 @@ fun TaskAddDialog(
             OutlinedTextField(
                 value = newText,
                 onValueChange = { newText = it },
-                label = { Text("Task Title") }
+                label = { Text("Task Title") },
+                modifier = Modifier.fillMaxWidth()
             )
         }
     }

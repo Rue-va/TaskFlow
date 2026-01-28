@@ -92,7 +92,7 @@ fun HomeScreen(navController: NavController, viewModel: TaskViewModel=viewModel 
                 ) {
                     Column {
                         Image(
-                            painter = rememberAsyncImagePainter("https://lh3.googleusercontent.com/aida-public/AB6AXuCyXsDhmp2AsaluQS_jFd6IW1sDwIa0H9JhhARUP153G_EdsU4jSzcilYaUXt-bwDUtEcJUjtLH9MCG-VVo2fpHaiSmbgGJE0jHoPY9GltqYBsDFFcn0i8fk_fn7m3c_XtoWJnrGnZCILwO8u_t99orsrDPDKPdZ58TSzaGzeO7dHAbmkZ39ZxWJBY3K-n2ToHaBdZeDVknASxKeNrduR72wp9CIvwG739o-OeJIxjw9FyvrY-CjW3Atix8z9PbWWw8QiDpDCEYPQ"),
+                            painter = rememberAsyncImagePainter("https://i.pinimg.com/736x/cc/d6/1a/ccd61a962470dde151f90cc7bcf921a4.jpg"),
                             contentDescription = null,
                             modifier = Modifier
                                 .fillMaxWidth()
